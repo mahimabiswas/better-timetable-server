@@ -5,21 +5,21 @@ const subjectSchema = new mongoose.Schema({
         type: String,
         required: true,
         trim: true,
-        lowercase: true,
         index: { unique: true },
     },
     longName: {
         type: String,
         required: true,
         trim: true,
-        minlength: 3
+        minlength: 6
     },
     type: {
         type: Number,
         required: true,
     },
-    program: {
-        // program id
+    programId: {
+        type: mongoose.Types.ObjectId,
+        ref: "Program"
     }
 }, {
     timestamps: true,
