@@ -10,10 +10,13 @@ const cors = require("cors");
 // route imports
 const authRoutes = require("./routes/auth");
 const staffRoutes = require("./routes/staff");
+const programRoutes = require("./routes/program");
 
 // DB connection
 const DB_NAME = 'better-timetable-dev';
 const DB_URL = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority`;
+
+
 mongoose
     .connect(DB_URL, {
         useNewUrlParser: true,
@@ -35,6 +38,7 @@ app.use(cors({
 // routes
 app.use("/auth/", authRoutes);
 app.use("/staff/", staffRoutes);
+app.use("/program/", programRoutes);
 
 // port
 const port = process.env.PORT || 8000;
