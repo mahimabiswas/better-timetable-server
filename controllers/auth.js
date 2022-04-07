@@ -86,7 +86,7 @@ exports.signIn = (req, res) => {
     if (email === process.env.ADMIN_EMAIL) {
         if (password == process.env.ADMIN_PASSWORD) {
             //create token
-            const token = jwt.sign({ _id: 000, role: 0 }, process.env.JWT_SECRET, { algorithm: 'HS256' });
+            const token = jwt.sign({ _id: 000, role: 0, email }, process.env.JWT_SECRET, { algorithm: 'HS256' });
             //put token in cookie
             res.cookie("token", token, { sameSite: "None", secure: true, expire: new Date() + 999999 });
 
@@ -120,7 +120,7 @@ exports.signIn = (req, res) => {
         }
 
         //create token
-        const token = jwt.sign({ _id: auth._id }, process.env.JWT_SECRET, { algorithm: 'HS256' });
+        const token = jwt.sign({ _id: auth._id, email, role: auth.role }, process.env.JWT_SECRET, { algorithm: 'HS256' });
         //put token in cookie
         res.cookie("token", token, { sameSite: "None", secure: true, expire: new Date() + 999999 });
         // is verifies TODO:
@@ -149,7 +149,7 @@ exports.isSignedIn = expressJwt({
     secret: process.env.JWT_SECRET,
     userProperty: "auth",
     getToken: function fromCookie(req) {
-        var token = req.cookies.token;// || req.body.token || req.query.access_token || req.headers['x-access-token'];
+        var token = req.cookies.token || req.body.token || req.headers['token']; // || req.query.access_token || req.headers['x-access-token'];
         if (token) {
             return token;
         }

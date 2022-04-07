@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 
-const noticeList = new mongoose.Schema({
-    userid: {
-        type: Object.id,
+const noticeListSchema = new mongoose.Schema({
+    email: {
+        type: String,
         required: true,
     },
     body: {
@@ -10,8 +10,8 @@ const noticeList = new mongoose.Schema({
         required: true,
         trim: true
     },
-},    {
+}, {
     timestamps: true,
 });
 
-module.exports = mongoose.model('noticeList', noticeListSchema);
+module.exports = mongoose.model('notice', noticeListSchema);

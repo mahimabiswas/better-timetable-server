@@ -1,18 +1,7 @@
 const Subject = require("../models/subject");
 
 exports.add = async (req, res) => {
-   
-
-    const {
-        shortName,
-        longName,
-        type,
-        programId
-    } = req.body;
-
-
-   
-
+    const { shortName, longName, type, programId } = req.body;
 
     const subject = new Subject({
         shortName,
@@ -37,12 +26,9 @@ exports.add = async (req, res) => {
 exports.get = async (req, res) => {
     try {
         const { programId } = req.body;
-        const subjects = await Subject.find({programId});
-        return res.status(200).json({subjects});
+        const subjects = await Subject.find({ programId });
+        return res.status(200).json({ subjects });
     } catch (e) {
         return res.status(500);
     }
-
-
-
 }

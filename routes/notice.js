@@ -7,9 +7,9 @@ const { addNotice } = require("../controllers/notice");
 
 
 router.post(
-    "/addnotice",
+    "/add",
     isSignedIn,
-    // isAdmin,
+    isAdmin,
     // TODO: noticePermission, 
     addNotice
 );

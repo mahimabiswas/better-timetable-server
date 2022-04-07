@@ -2,25 +2,25 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add ,get, _delete} = require("../controllers/program");
+const { add, get, _delete } = require("../controllers/program");
 
 
 router.post(
     "/add",
-    // isSignedIn,
-    //isAdmin,
+    isSignedIn,
+    isAdmin,
     add
 );
 router.get(
     "/get",
-    // isSignedIn,
-    //isAdmin,
+    isSignedIn,
+    isAdmin,
     get
 );
 router.delete(
     "/delete",
-    // isSignedIn,
-    //isAdmin,
+    isSignedIn,
+    isAdmin,
     _delete
 );
 
