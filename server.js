@@ -12,6 +12,7 @@ const authRoutes = require("./routes/auth");
 const staffRoutes = require("./routes/staff");
 const programRoutes = require("./routes/program");
 const subjectRoutes = require("./routes/subject");
+const noticeRoutes = require("./routes/notice");
 
 // DB connection
 const DB_NAME = 'better-timetable-dev';
@@ -41,6 +42,7 @@ app.use("/auth/", authRoutes);
 app.use("/staff/", staffRoutes);
 app.use("/program/", programRoutes);
 app.use("/subject/", subjectRoutes);
+app.use("/notice/", noticeRoutes);
 
 // port
 const port = process.env.PORT || 8000;
