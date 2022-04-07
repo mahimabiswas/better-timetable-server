@@ -1,5 +1,4 @@
-const notice = require('../models/notice');
-const Notice = require('../models/notice')
+const Notice = require('../models/notice');
 
 exports.addNotice = async (req, res) => {
     const { body } = req.body;
