@@ -1,16 +1,15 @@
-const Subject = require("../models/subject");
+const Batch= require("../models/batch");
 
 exports.add = async (req, res) => {
-    const { shortName, longName, type, programId } = req.body;
+    const { shortName, longName, programId } = req.body;
 
-    const subject = new Subject({
+    const batch = new Batch({
         shortName,
         longName,
-        type,
         programId
     });
 
-    subject.save(async (err, params) => {
+    batch.save(async (err) => { // remove the param (to review)
         if (err) {
             return res.status(400).json({
                 err: "NOT able to save subject in DB"
@@ -18,7 +17,7 @@ exports.add = async (req, res) => {
         }
 
         return res.json({
-            id: subject._id
+            id: batch._id
         });
     });
 };
@@ -26,8 +25,8 @@ exports.add = async (req, res) => {
 exports.get = async (req, res) => {
     try {
         const { programId } = req.body;
-        const subjects = await Subject.find({ programId });
-        return res.status(200).json({ subjects });
+        const batches = await Batch.find({ programId });
+        return res.status(200).json({ batches });
     } catch (e) {
         return res.status(500);
     }
