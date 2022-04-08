@@ -7,7 +7,7 @@ exports.add = async (req, res) => {
         shortName,
         longName,
         programId,
-        divisons
+        divisions
     });
 
     batch.save(async (err) => { // remove the param (to review)
@@ -35,8 +35,8 @@ exports.get = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id, shortName ,longName, programId, divisons} = req.body;   
-        const batch = await Batch.findByIdAndUpdate( id,{shortName ,longName, programId, divisons} );
+        const { id, shortName, longName, programId, divisons } = req.body;
+        const batch = await Batch.findByIdAndUpdate(id, { shortName, longName, programId, divisons });
         return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);
@@ -46,7 +46,7 @@ exports.update = async (req, res) => {
 exports._delete = async (req, res) => {
     try {
         const { id } = req.body;
-        const batch = await Batch.findByIdAndDelete( id );
+        const batch = await Batch.findByIdAndDelete(id);
         return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);

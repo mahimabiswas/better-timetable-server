@@ -72,12 +72,10 @@ exports.getDetails = async (req, res) => {
     }
 }
 
-<<<<<<< HEAD
-=======
 exports.update = async (req, res) => {
     try {
-        const { id, email,name,role,noticePermission } = req.body;
-        const staff = await Staff.findByIdAndUpdate( id,{email,name,role,noticePermission } );
+        const { id, email, name, role, noticePermission } = req.body;
+        const staff = await Staff.findByIdAndUpdate(id, { email, name, role, noticePermission });
         return res.status(200).json({ staff });
     } catch (e) {
         return res.status(500);
@@ -93,4 +91,3 @@ exports._delete = async (req, res) => {
         return res.status(500);
     }
 };
->>>>>>> c4663fe42df01f4d126676e8fc0e84269b36a1bb
