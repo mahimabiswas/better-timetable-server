@@ -1,10 +1,10 @@
-const Lecture= require("../models/lecture");
+const Lecture = require("../models/lecture");
 
 exports.add = async (req, res) => {
-    const { stafId, subjectId, division,day,date,time,batchId} = req.body;
+    const { stafId, subjectId, division, day, date, time, batchId } = req.body;
 
-    const lecture= new Lecture({
-        stafId,
+    const lecture = new Lecture({
+        staffId,
         subjectId,
         division,
         day,
@@ -29,7 +29,7 @@ exports.add = async (req, res) => {
 exports._delete = async (req, res) => {
     try {
         const { id } = req.body;
-        const lectures = await Lecture.findByIdAndDelete( id );
+        const lectures = await Lecture.findByIdAndDelete(id);
         return res.status(200).json({ lectures });
     } catch (e) {
         return res.status(500);
@@ -37,11 +37,11 @@ exports._delete = async (req, res) => {
 }
 exports.update = async (req, res) => {
     try {
-        const { id,stafId, subjectId, division,day,date,time,batchId} = req.body;
+        const { id, stafId, subjectId, division, day, date, time, batchId } = req.body;
 
-        
-    
-        const lectures = await Lecture.findByIdAndUpdate( id,{stafId, subjectId, division,day,date,time,batchId} );
+
+
+        const lectures = await Lecture.findByIdAndUpdate(id, { staffId, subjectId, division, day, date, time, batchId });
         return res.status(200).json({ lectures });
     } catch (e) {
         return res.status(500);
@@ -54,7 +54,12 @@ exports.update = async (req, res) => {
 
 exports.get = async (req, res) => {
     const { programId, batchId, division } = req.body
-    const lectures = await Lecture.find({ id } );
+    const lectures = await Lecture.find({ id });
+    // TODO:
+
+
+
+
 }
 
 

@@ -1,4 +1,4 @@
-const Batch= require("../models/batch");
+const Batch = require("../models/batch");
 
 exports.add = async (req, res) => {
     const { shortName, longName, programId } = req.body;

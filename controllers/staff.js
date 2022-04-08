@@ -1,8 +1,9 @@
 const Staff = require('../models/staff')
 
+// TODO: update
+
 exports.addStaff = async (req, res) => {
     const { email, name, role, noticePermission } = req.body;
-
 
     const staff = await Staff.find({ email });
 
@@ -29,6 +30,26 @@ exports.addStaff = async (req, res) => {
     });
 }
 
+exports.list = async (req, res) => {
+    try {
+        const staffs = await Staff.find({});
+
+        let list = await staffs.map(staff => ({
+            email: staff.email,
+            name: staff.name,
+            role: staff.role,
+        }));
+
+        res.status(200).json({
+            staffs: list
+        });
+    } catch (e) {
+        res.status(500).json({
+            err: 'Faced error'
+        });
+    }
+}
+
 exports.getDetails = async (req, res) => {
     const { email } = req.query;
 
@@ -50,3 +71,4 @@ exports.getDetails = async (req, res) => {
         });
     }
 }
+

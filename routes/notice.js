@@ -2,27 +2,26 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { addNotice, delNotice, getNotice } = require("../controllers/notice");
+const { add, _delete, get } = require("../controllers/notice");
 
 
 router.post(
     "/add",
     isSignedIn,
     isAdmin,
-    // TODO: noticePermission, 
-    addNotice
+    add
 );
 
 router.delete(
-    "/deletenotice",
+    "/delete",
     isSignedIn,
-    isAdmin, 
-    delNotice
+    isAdmin,
+    _delete
 );
 
 router.get(
     "/get",
-    getNotice
+    get
 );
 
 module.exports = router;
