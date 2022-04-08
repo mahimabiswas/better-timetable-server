@@ -48,7 +48,7 @@ exports._delete = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id, shortName, longName, type, programId } = req.body;
-        const subject = await Subject.findByIdAndUpdate( id,{shortName, longName, type, programId } );
+            const subject = await Subject.findByIdAndUpdate( id,{$set:{shortName, longName, type, programId }},{new:true} );
         return res.status(200).json({ subject });
     } catch (e) {
         return res.status(500);

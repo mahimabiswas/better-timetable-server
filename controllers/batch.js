@@ -12,6 +12,7 @@ exports.add = async (req, res) => {
 
     batch.save(async (err) => { // remove the param (to review)
         if (err) {
+            console.log(err);
             return res.status(400).json({
                 err: "NOT able to save subject in DB"
             });
@@ -35,8 +36,8 @@ exports.get = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id, shortName, longName, programId, divisons } = req.body;
-        const batch = await Batch.findByIdAndUpdate(id, { shortName, longName, programId, divisons });
+        const { id, shortName ,longName, programId, divisions} = req.body;   
+        const batch = await Batch.findByIdAndUpdate( id,{$set:{shortName ,longName, programId, divisions}},{new:true} );
         return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);

@@ -51,8 +51,8 @@ exports.list = async (req, res) => {
 }
 
 exports.getDetails = async (req, res) => {
-    const { email } = req.query;
-
+    const { email } = req.body;
+console.log(email);
     if (email) {
         const staff = await Staff.findOne({ email });
 
@@ -74,8 +74,10 @@ exports.getDetails = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id, email, name, role, noticePermission } = req.body;
-        const staff = await Staff.findByIdAndUpdate(id, { email, name, role, noticePermission });
+        const { id,name,role,noticePermission } = req.body;
+        const staff= await Staff.findByIdAndUpdate( id,{$set:{name,role,noticePermission }},{new:true} );
+       
+
         return res.status(200).json({ staff });
     } catch (e) {
         return res.status(500);

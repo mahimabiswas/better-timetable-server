@@ -1,9 +1,11 @@
 const Lecture = require("../models/lecture");
 
 exports.add = async (req, res) => {
-    const { stafId, subjectId, division, day, date, time, batchId } = req.body;
 
-    const lecture = new Lecture({
+  const { staffId, subjectId, division,day,date,time,batchId} = req.body;
+
+    const lecture= new Lecture({
+
         staffId,
         subjectId,
         division,
@@ -37,11 +39,9 @@ exports._delete = async (req, res) => {
 }
 exports.update = async (req, res) => {
     try {
-        const { id, stafId, subjectId, division, day, date, time, batchId } = req.body;
+        const { id,staffId, subjectId, division,day,date,time,batchId} = req.body;
+        const lectures = await Lecture.findByIdAndUpdate( id,{$set:{staffId, subjectId, division,day,date,time,batchId}},{new:true} );
 
-
-
-        const lectures = await Lecture.findByIdAndUpdate(id, { staffId, subjectId, division, day, date, time, batchId });
         return res.status(200).json({ lectures });
     } catch (e) {
         return res.status(500);
