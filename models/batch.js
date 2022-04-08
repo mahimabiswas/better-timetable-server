@@ -17,7 +17,7 @@ const batchSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Program"
     },
-    divisons: {
+    divisions: {
         type: [String],
     }
 }, {

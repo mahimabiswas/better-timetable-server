@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add, get, _delete, update } = require("../controllers/program");
+const { add, get, _delete, update, getById } = require("../controllers/program");
 
 
 router.post(
@@ -30,5 +30,11 @@ router.put(
     update
 );
 
+router.get(
+    "/getById",
+    // isSignedIn,
+    // isAdmin,
+    getById
+);
 
 module.exports = router;

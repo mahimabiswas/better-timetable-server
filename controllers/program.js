@@ -40,13 +40,24 @@ exports._delete = async (req, res) => {
     }
 };
 
+
+// TO REVIEW
 exports.update = async (req, res) => {
     try {
         const { id,shortName,longName} = req.body;   
-        const program = await Program.findByIdAndUpdate( id,{shortName,longName} );
+        const program = await Program.findByIdAndUpdate( id,{$set:{shortName,longName}},{new:true} );
         return res.status(200).json({ program });
     } catch (e) {
         return res.status(500);
     }
 }
 
+exports.getById = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const programmes = await Program.findById(id);
+        return res.status(200).json({ programmes: programmes });
+    } catch (e) {
+        return res.status(500);
+    }
+};

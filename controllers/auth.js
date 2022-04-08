@@ -119,8 +119,9 @@ exports.signIn = (req, res) => {
             });
         }
 
+
         //create token
-        const token = jwt.sign({ _id: auth._id, email, role: auth.role }, process.env.JWT_SECRET, { algorithm: 'HS256' });
+        const token = jwt.sign({ _id: auth._id, email: auth.email, role: auth.role }, process.env.JWT_SECRET, { algorithm: 'HS256' });
         //put token in cookie
         res.cookie("token", token, { sameSite: "None", secure: true, expire: new Date() + 999999 });
         // is verifies TODO:

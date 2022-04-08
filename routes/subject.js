@@ -13,10 +13,12 @@ router.get(
     "/get",
     get
 );
+
 router.delete(
     "/delete",
     _delete
 );
+
 router.put(
     "/update",
     update
