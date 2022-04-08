@@ -34,3 +34,23 @@ exports.get = async (req, res) => {
         return res.status(500);
     }
 }
+
+exports._delete = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const subjects = await Subject.findByIdAndDelete(id);
+        return res.status(200).json({ subjects });
+    } catch (e) {
+        return res.status(500);
+    }
+};
+
+exports.update = async (req, res) => {
+    try {
+        const { id, shortName, longName, type, programId } = req.body;
+        const subject = await Subject.findByIdAndUpdate( id,{shortName, longName, type, programId } );
+        return res.status(200).json({ subject });
+    } catch (e) {
+        return res.status(500);
+    }
+}

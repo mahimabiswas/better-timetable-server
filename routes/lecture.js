@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add, get, _delete, update } = require("../controllers/program");
+const { add, get, _delete, update } = require("../controllers/lecture");
 
 
 router.post(
@@ -29,6 +29,5 @@ router.put(
     isAdmin,
     update
 );
-
 
 module.exports = router;
