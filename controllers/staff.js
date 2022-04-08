@@ -15,7 +15,7 @@ exports.addStaff = async (req, res) => {
     newStaff.save((err, staff) => {
         if (err) {
             return res.status(400).json({
-                err: "NOT able to save staff in DB"
+                err: "Not able to save staff in DB"
             });
         } else {
             res.status(200).json({
@@ -50,3 +50,23 @@ exports.getDetails = async (req, res) => {
         });
     }
 }
+
+exports.update = async (req, res) => {
+    try {
+        const { id, email,name,role,noticePermission } = req.body;
+        const staff = await Staff.findByIdAndUpdate( id,{email,name,role,noticePermission } );
+        return res.status(200).json({ staff });
+    } catch (e) {
+        return res.status(500);
+    }
+}
+
+exports._delete = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const staff = await Staff.findByIdAndDelete(id);
+        return res.status(200).json({ staff });
+    } catch (e) {
+        return res.status(500);
+    }
+};

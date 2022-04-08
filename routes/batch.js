@@ -2,22 +2,27 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { addStaff, getDetails, update, _delete } = require("../controllers/staff");
+const { add, get, _delete, update } = require("../controllers/batch");
 
 
 router.post(
     "/add",
     isSignedIn,
     isAdmin,
-    addStaff
+    add
 );
-
 router.get(
-    "/details",
+    "/get",
     // isSignedIn,
-    getDetails
+    // isAdmin,
+    get
 );
-
+router.delete(
+    "/delete",
+    isSignedIn,
+    isAdmin,
+    _delete
+);
 router.put(
     "/update",
     isSignedIn,
@@ -25,10 +30,4 @@ router.put(
     update
 );
 
-router.delete(
-    "/delete",
-    isSignedIn,
-    isAdmin,
-    _delete
-);
 module.exports = router;

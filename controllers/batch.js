@@ -1,12 +1,13 @@
 const Batch= require("../models/batch");
 
 exports.add = async (req, res) => {
-    const { shortName, longName, programId } = req.body;
+    const { shortName, longName, programId, divisions } = req.body;
 
     const batch = new Batch({
         shortName,
         longName,
-        programId
+        programId,
+        divisons
     });
 
     batch.save(async (err) => { // remove the param (to review)
@@ -27,6 +28,26 @@ exports.get = async (req, res) => {
         const { programId } = req.body;
         const batches = await Batch.find({ programId });
         return res.status(200).json({ batches });
+    } catch (e) {
+        return res.status(500);
+    }
+}
+
+exports.update = async (req, res) => {
+    try {
+        const { id, shortName ,longName, programId, divisons} = req.body;   
+        const batch = await Batch.findByIdAndUpdate( id,{shortName ,longName, programId, divisons} );
+        return res.status(200).json({ batch });
+    } catch (e) {
+        return res.status(500);
+    }
+}
+
+exports._delete = async (req, res) => {
+    try {
+        const { id } = req.body;
+        const batch = await Batch.findByIdAndDelete( id );
+        return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);
     }

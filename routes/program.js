@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add, get, _delete } = require("../controllers/program");
+const { add, get, _delete, update } = require("../controllers/program");
 
 
 router.post(
@@ -13,8 +13,8 @@ router.post(
 );
 router.get(
     "/get",
-    isSignedIn,
-    isAdmin,
+    // isSignedIn,
+    // isAdmin,
     get
 );
 router.delete(
@@ -23,5 +23,12 @@ router.delete(
     isAdmin,
     _delete
 );
+router.put(
+    "/update",
+    isSignedIn,
+    isAdmin,
+    update
+);
+
 
 module.exports = router;
