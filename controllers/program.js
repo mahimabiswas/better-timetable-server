@@ -40,3 +40,13 @@ exports._delete = async (req, res) => {
     }
 };
 
+exports.update = async (req, res) => {
+    try {
+        const { id,shortName,longName} = req.body;   
+        const program = await Program.findByIdAndUpdate( id,{shortName,longName} );
+        return res.status(200).json({ program });
+    } catch (e) {
+        return res.status(500);
+    }
+}
+
