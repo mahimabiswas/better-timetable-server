@@ -1,4 +1,4 @@
-const Batch= require("../models/batch");
+const Batch = require("../models/batch");
 
 exports.add = async (req, res) => {
     const { shortName, longName, programId, divisions } = req.body;
@@ -47,7 +47,7 @@ exports.update = async (req, res) => {
 exports._delete = async (req, res) => {
     try {
         const { id } = req.body;
-        const batch = await Batch.findByIdAndDelete( id );
+        const batch = await Batch.findByIdAndDelete(id);
         return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);

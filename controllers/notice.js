@@ -1,9 +1,7 @@
 const Notice = require('../models/notice');
 
-exports.addNotice = async (req, res) => {
-    const {
-        body
-    } = req.body;
+exports.add = async (req, res) => {
+    const { body } = req.body;
 
     if (body.length < 20) {
         return res.status(400).json({
@@ -32,15 +30,11 @@ exports.addNotice = async (req, res) => {
 }
 
 
-exports.delNotice = async (req, res) => {
+exports._delete = async (req, res) => {
     try {
-        const {
-            id
-        } = req.body;
+        const { id } = req.body;
 
-        const notice = await Notice.findOneAndDelete({
-            id
-        });
+        const notice = await Notice.findOneAndDelete({ id });
         return res.status(200).json({
             notice
         });
@@ -50,7 +44,7 @@ exports.delNotice = async (req, res) => {
 };
 
 
-exports.getNotice = async (req, res) => {
+exports.get = async (req, res) => {
     try {
         const notice = await Notice.find({});
         return res.status(200).json({
