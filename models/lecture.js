@@ -15,7 +15,7 @@ const lectureSchema = new mongoose.Schema({
         maxlength:1
     },
     day: {
-        type: [String],
+        type: [Number],
         minlength: 1
     },
     date: {

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add, get, _delete, update } = require("../controllers/batch");
+const { add, get, _delete, update, getDivision } = require("../controllers/batch");
 
 
 router.post(
@@ -30,4 +30,8 @@ router.put(
     update
 );
 
+router.get(
+    "/division",
+    getDivision
+);
 module.exports = router;

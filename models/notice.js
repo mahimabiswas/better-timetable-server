@@ -10,6 +10,10 @@ const noticeListSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
+    date: {
+        type: Number,
+        required: true
+    }
 }, {
     timestamps: true,
 });
