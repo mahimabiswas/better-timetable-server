@@ -46,16 +46,30 @@ exports.update = async (req, res) => {
     } catch (e) {
         return res.status(500);
     }
-}
+};
 
 
 
 // program, batch, div
 
 exports.get = async (req, res) => {
-    const { programId, batchId, division } = req.body
-    const lectures = await Lecture.find({ id } );
+    let result =[]
+    try {
+    const { batchId, division } = req.body
+    const lectures = await Lecture.find( { $and: [ { batchId:batchId }, { division: division } ] } )
+    for(i=0; i<lectures.length; i++) {
+        let subId = lectures[i].subjectId;
+        let staffId = lectures[i].staffId;
+        const subjectDetails = await Subject.findById({subId})
+        //let sub = [ subjectDetails.shortName , subjectDetails.longName , subjectDetails.type ]
+        let StaffName = await Staff.findById({staffId})
+       //result[i]=[StaffName, subjectDetails.shortName , subjectDetails.longName , subjectDetails.type]
+      }
+    return res.status(200).json({ result });
+}catch (e) {
+    return res.status(500);
 }
+};
 
 
 

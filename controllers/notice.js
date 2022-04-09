@@ -2,7 +2,7 @@ const Notice = require('../models/notice');
 
 exports.addNotice = async (req, res) => {
     const {
-        body
+        body,date
     } = req.body;
 
     if (body.length < 20) {
@@ -14,7 +14,8 @@ exports.addNotice = async (req, res) => {
 
     const notice = new Notice({
         email: req.auth.email,
-        body
+        body,
+        date
     });
 
     notice.save((err, _) => {

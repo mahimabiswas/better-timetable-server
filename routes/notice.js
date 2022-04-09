@@ -14,7 +14,7 @@ router.post(
 );
 
 router.delete(
-    "/deletenotice",
+    "/delete",
     isSignedIn,
     isAdmin, 
     delNotice

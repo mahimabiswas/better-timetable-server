@@ -53,3 +53,14 @@ exports._delete = async (req, res) => {
         return res.status(500);
     }
 }
+
+exports.getDivision = async (req, res) => {
+    try {
+        const { Id } = req.body;
+        const batches = await Batch.findById( Id );
+        console.log(batches)
+        return res.status(200).json( {divisions : batches.divisions}  );
+    } catch (e) {
+        return res.status(500);
+    }
+}
