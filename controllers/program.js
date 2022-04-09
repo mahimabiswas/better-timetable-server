@@ -3,10 +3,7 @@ const Program = require("../models/program");
 exports.add = async (req, res) => {
     const { shortName, longName } = req.body;
 
-    const program = new Program({
-        shortName,
-        longName
-    });
+    const program = new Program({ shortName, longName });
 
     program.save(async (err, params) => {
         if (err) {

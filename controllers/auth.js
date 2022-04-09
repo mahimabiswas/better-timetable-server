@@ -12,13 +12,11 @@ exports.signUp = async (req, res) => {
 
     const { email, password } = req.body;
 
-
     if (!errors.isEmpty()) {
         return res.status(422).json({
             error: errors.array()[0].msg
         });
     }
-
 
     if (email === process.env.ADMIN_EMAIL) {
         return res.status(400).json({

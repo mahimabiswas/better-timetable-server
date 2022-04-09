@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { addStaff, getDetails, update, _delete } = require("../controllers/staff");
+const { addStaff, getDetails, update, _delete, list } = require("../controllers/staff");
 
 
 router.post(
@@ -10,6 +10,13 @@ router.post(
     isSignedIn,
     isAdmin,
     addStaff
+);
+
+router.get(
+    "/list",
+    isSignedIn,
+    isAdmin,
+    list
 );
 
 router.get(

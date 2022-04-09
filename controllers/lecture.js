@@ -1,9 +1,11 @@
-const Lecture= require("../models/lecture");
+const Lecture = require("../models/lecture");
 
 exports.add = async (req, res) => {
-    const { staffId, subjectId, division,day,date,time,batchId} = req.body;
+
+  const { staffId, subjectId, division,day,date,time,batchId} = req.body;
 
     const lecture= new Lecture({
+
         staffId,
         subjectId,
         division,
@@ -29,7 +31,7 @@ exports.add = async (req, res) => {
 exports._delete = async (req, res) => {
     try {
         const { id } = req.body;
-        const lectures = await Lecture.findByIdAndDelete( id );
+        const lectures = await Lecture.findByIdAndDelete(id);
         return res.status(200).json({ lectures });
     } catch (e) {
         return res.status(500);
@@ -38,10 +40,8 @@ exports._delete = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id,staffId, subjectId, division,day,date,time,batchId} = req.body;
+        const lectures = await Lecture.findByIdAndUpdate( id,{$set:{staffId, subjectId, division,day,date,time,batchId}},{new:true} );
 
-        
-    
-            const lectures = await Lecture.findByIdAndUpdate( id,{$set:{staffId, subjectId, division,day,date,time,batchId}},{new:true} );
         return res.status(200).json({ lectures });
     } catch (e) {
         return res.status(500);
@@ -53,6 +53,7 @@ exports.update = async (req, res) => {
 // program, batch, div
 
 exports.get = async (req, res) => {
+<<<<<<< HEAD
     let result =[]
     try {
     const { batchId, division } = req.body
@@ -68,6 +69,15 @@ exports.get = async (req, res) => {
     return res.status(200).json({ result });
 }catch (e) {
     return res.status(500);
+=======
+    const { programId, batchId, division } = req.body
+    const lectures = await Lecture.find({ id });
+    // TODO:
+
+
+
+
+>>>>>>> 55ae3e5b685b695b6c552316ebaf4a2da1969918
 }
 };
 
