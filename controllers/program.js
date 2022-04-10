@@ -21,9 +21,6 @@ exports.add = async (req, res) => {
 exports.get = async (req, res) => {
     try {
         const programmes = await Program.find({});
-
-
-        
         return res.status(200).json({ programmes: programmes });
     } catch (e) {
         return res.status(500);
