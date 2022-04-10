@@ -17,7 +17,7 @@ const lectureRoutes = require("./routes/lecture");
 const batchRoutes = require("./routes/batch");
 
 // DB connection
-const DB_NAME = 'better-timetable-test-1';
+const DB_NAME = 'better-timetable-dev-test-1';
 const DB_URL = `mongodb+srv://${process.env.MONGODB_USERNAME}:${process.env.MONGODB_PASSWORD}@${process.env.MONGODB_CLUSTER}/${DB_NAME}?retryWrites=true&w=majority`;
 
 
