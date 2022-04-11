@@ -27,7 +27,7 @@ exports.add = async (req, res) => {
 
 exports.get = async (req, res) => {
     try {
-        const { programId } = req.body;
+        const { programId } = req.query;
         const batches = await Batch.find({ programId });
         return res.status(200).json({ batches });
     } catch (e) {
@@ -37,8 +37,8 @@ exports.get = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id, shortName ,longName, programId, divisions} = req.body;   
-        const batch = await Batch.findByIdAndUpdate( id,{$set:{shortName ,longName, programId, divisions}},{new:true} );
+        const { id, shortName, longName, programId, divisions } = req.body;
+        const batch = await Batch.findByIdAndUpdate(id, { $set: { shortName, longName, programId, divisions } }, { new: true });
         return res.status(200).json({ batch });
     } catch (e) {
         return res.status(500);
@@ -57,9 +57,9 @@ exports._delete = async (req, res) => {
 
 exports.getDivision = async (req, res) => {
     try {
-        const { Id } = req.body;
-        const batches = await Batch.findById( Id );
-        return res.status(200).json( {divisions : batches.divisions}  );
+        const { batchId } = req.query;
+        const batches = await Batch.findById(batchId);
+        return res.status(200).json({ divisions: batches.divisions });
     } catch (e) {
         return res.status(500);
     }

@@ -35,6 +35,7 @@ exports.list = async (req, res) => {
         const staffs = await Staff.find({});
 
         let list = await staffs.map(staff => ({
+            id: staff._id,
             email: staff.email,
             name: staff.name,
             role: staff.role,
@@ -52,7 +53,7 @@ exports.list = async (req, res) => {
 
 exports.getDetails = async (req, res) => {
     const { email } = req.body;
-console.log(email);
+    console.log(email);
     if (email) {
         const staff = await Staff.findOne({ email });
 
@@ -74,9 +75,9 @@ console.log(email);
 
 exports.update = async (req, res) => {
     try {
-        const { id,name,role,noticePermission } = req.body;
-        const staff= await Staff.findByIdAndUpdate( id,{$set:{name,role,noticePermission }},{new:true} );
-       
+        const { id, name, role, noticePermission } = req.body;
+        const staff = await Staff.findByIdAndUpdate(id, { $set: { name, role, noticePermission } }, { new: true });
+
 
         return res.status(200).json({ staff });
     } catch (e) {

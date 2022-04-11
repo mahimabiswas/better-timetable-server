@@ -1,9 +1,7 @@
 const Notice = require('../models/notice');
 
-
 exports.add = async (req, res) => {
     const { body } = req.body;
-
 
     if (body.length < 20) {
         return res.status(400).json({

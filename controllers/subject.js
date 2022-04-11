@@ -3,7 +3,7 @@ const Subject = require("../models/subject");
 // TODO: update
 
 exports.add = async (req, res) => {
-    const { shortName, longName, type, programId } = req.body;
+    const { shortName, longName, subjectType: type, programId } = req.body;
 
     const subject = new Subject({
         shortName,
@@ -12,7 +12,7 @@ exports.add = async (req, res) => {
         programId
     });
 
-    subject.save(async (err, params) => {
+    subject.save(async (err, _) => {
         if (err) {
             return res.status(400).json({
                 err: "NOT able to save subject in DB"
@@ -27,7 +27,7 @@ exports.add = async (req, res) => {
 
 exports.get = async (req, res) => {
     try {
-        const { programId } = req.body;
+        const { programId } = req.query;
         const subjects = await Subject.find({ programId });
         return res.status(200).json({ subjects });
     } catch (e) {
@@ -48,7 +48,7 @@ exports._delete = async (req, res) => {
 exports.update = async (req, res) => {
     try {
         const { id, shortName, longName, type, programId } = req.body;
-            const subject = await Subject.findByIdAndUpdate( id,{$set:{shortName, longName, type, programId }},{new:true} );
+        const subject = await Subject.findByIdAndUpdate(id, { $set: { shortName, longName, type, programId } }, { new: true });
         return res.status(200).json({ subject });
     } catch (e) {
         return res.status(500);

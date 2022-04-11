@@ -24,9 +24,6 @@ exports.add = async (req, res) => {
 exports.get = async (req, res) => {
     try {
         const programmes = await Program.find({});
-
-
-        
         return res.status(200).json({ programmes: programmes });
     } catch (e) {
         return res.status(500);
@@ -47,8 +44,8 @@ exports._delete = async (req, res) => {
 // TO REVIEW
 exports.update = async (req, res) => {
     try {
-        const { id,shortName,longName} = req.body;   
-        const program = await Program.findByIdAndUpdate( id,{$set:{shortName,longName}},{new:true} );
+        const { id, shortName, longName } = req.body;
+        const program = await Program.findByIdAndUpdate(id, { $set: { shortName, longName } }, { new: true });
         return res.status(200).json({ program });
     } catch (e) {
         return res.status(500);
@@ -57,9 +54,9 @@ exports.update = async (req, res) => {
 
 exports.getById = async (req, res) => {
     try {
-        const { id } = req.body;
-        const programmes = await Program.findById(id);
-        return res.status(200).json({ programmes: programmes });
+        const { id } = req.query;
+        const program = await Program.findById(id);
+        return res.status(200).json({ program });
     } catch (e) {
         return res.status(500);
     }
