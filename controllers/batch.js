@@ -56,8 +56,8 @@ exports._delete = async (req, res) => {
 
 exports.getDivision = async (req, res) => {
     try {
-        const { id } = req.body;
-        const batches = await Batch.findById(id);
+        const { batchId } = req.query;
+        const batches = await Batch.findById(batchId);
         return res.status(200).json({ divisions: batches.divisions });
     } catch (e) {
         return res.status(500);
