@@ -50,7 +50,7 @@ exports._delete = async (req, res) => {
     try {
         const {
             id
-        } = req.body;
+        } = req.query;
         const subjects = await Subject.findByIdAndDelete(id);
         return res.status(200).json({
             subjects

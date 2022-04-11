@@ -33,7 +33,7 @@ exports.add = async (req, res) => {
 
 exports._delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.query;
         const lectures = await Lecture.findByIdAndDelete(id);
         return res.status(200).json({ lectures });
     } catch (e) {
@@ -66,7 +66,7 @@ exports.get = async (req, res) => {
             let staffId = lectures[i].staffId.toString();
             let subjectDetails = await Subject.findById(subId)
             let staffDetails = await Staff.findById(staffId)
-            result[i] = { name: staffDetails.name, shortName: subjectDetails.shortName, longName: subjectDetails.longName, type: subjectDetails.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
+            result[i] = { id: lectures[i]._id, name: staffDetails.name, shortName: subjectDetails.shortName, longName: subjectDetails.longName, type: subjectDetails.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
         }
         return res.status(200).json({ result: result });
     }
