@@ -67,21 +67,21 @@ exports.getDivision = async (req, res) => {
 
 exports.getBatchDetails = async (req, res) => {
     try {
-        const { batchId } = req.body;
-        const lectures = await Lecture.find( {batchId:batchId} );
-        let staffNumbers = lectures.map(lecture=>{
+        const { batchId } = req.query;
+        const lectures = await Lecture.find({ batchId: batchId });
+        let staffNumbers = lectures.map(lecture => {
             return lecture.staffId.toString()
         })
         let distinctStaff = new Set(staffNumbers)
         totStaff = distinctStaff.size
-        
-        let subjectNumbers = lectures.map(lecture=>{
+
+        let subjectNumbers = lectures.map(lecture => {
             return lecture.staffId.toString()
         })
         let distinctSubjects = new Set(subjectNumbers)
         totSubs = distinctSubjects.size
 
-        return res.status(200).json( { totalTeachers:totStaff, totalSubjects:totSubs }  );
+        return res.status(200).json({ totalTeachers: totStaff, totalSubjects: totSubs });
     } catch (e) {
         console.log(e)
         return res.status(500);

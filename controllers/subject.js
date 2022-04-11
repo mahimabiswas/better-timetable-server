@@ -89,24 +89,22 @@ exports.update = async (req, res) => {
 
 exports.getElectives = async (req, res) => {
     try {
-        let result = []
-        const {
-            batchId
-        } = req.body;
+        let result = [];
+        const { batchId } = req.query;
         const lectures = await Lecture.find({
             batchId
         });
         let subjectIds = lectures.map(lecture => {
-            return lecture.subjectId.toString()
+            return lecture.subjectId.toString();
         });
-        let distinctSubject = new Set(subjectIds)
-        distinctSubject = [...distinctSubject]
+        let distinctSubject = new Set(subjectIds);
+        distinctSubject = [...distinctSubject];
         for (i = 0; i < distinctSubject.length; i++) {
-            const subjects = await Subject.findById(distinctSubject[i]);
-            if (subjects.type == 2) {
+            const subject = await Subject.findById(distinctSubject[i]);
+            if (subject.type === 1) {
                 result[i] = {
-                    shortName: subjects.shortName,
-                    longName: subjects.longName
+                    shortName: subject.shortName,
+                    longName: subject.longName
                 }
             }
         }
