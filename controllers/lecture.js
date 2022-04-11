@@ -1,4 +1,7 @@
 const Lecture = require("../models/lecture");
+const Subject = require("../models/subject");
+const Staff = require("../models/staff");
+
 
 exports.add = async (req, res) => {
 
@@ -53,35 +56,20 @@ exports.update = async (req, res) => {
 // program, batch, div
 
 exports.get = async (req, res) => {
-<<<<<<< HEAD
     let result =[]
     try {
     const { batchId, division } = req.body
     const lectures = await Lecture.find( { $and: [ { batchId:batchId }, { division: division } ] } )
     for(i=0; i<lectures.length; i++) {
-        let subId = lectures[i].subjectId;
-        let staffId = lectures[i].staffId;
-        const subjectDetails = await Subject.findById({subId})
-        //let sub = [ subjectDetails.shortName , subjectDetails.longName , subjectDetails.type ]
-        let StaffName = await Staff.findById({staffId})
-       //result[i]=[StaffName, subjectDetails.shortName , subjectDetails.longName , subjectDetails.type]
+        const subId = lectures[i].subjectId.toString();
+        let staffId = lectures[i].staffId.toString();
+        let subjectDetails = await Subject.findById(subId)
+        let staffDetails = await Staff.findById(staffId)
+        result[i]={name :staffDetails.name,shortName: subjectDetails.shortName ,longName: subjectDetails.longName ,type: subjectDetails.type,time: lectures[i].time, day: lectures[i].day, date: lectures[i].date}
       }
-    return res.status(200).json({ result });
-}catch (e) {
+          return res.status(200).json({ result:result });}
+    catch (e) 
+    {
     return res.status(500);
-=======
-    const { programId, batchId, division } = req.body
-    const lectures = await Lecture.find({ id });
-    // TODO:
-
-
-
-
->>>>>>> 55ae3e5b685b695b6c552316ebaf4a2da1969918
-}
+    }
 };
-
-
-
-
-

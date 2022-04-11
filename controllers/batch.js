@@ -1,4 +1,5 @@
 const Batch = require("../models/batch");
+const Lecture = require("../models/lecture")
 
 exports.add = async (req, res) => {
     const { shortName, longName, programId, divisions } = req.body;
@@ -58,9 +59,31 @@ exports.getDivision = async (req, res) => {
     try {
         const { Id } = req.body;
         const batches = await Batch.findById( Id );
-        console.log(batches)
         return res.status(200).json( {divisions : batches.divisions}  );
     } catch (e) {
+        return res.status(500);
+    }
+}
+
+exports.getBatchDetails = async (req, res) => {
+    try {
+        const { batchId } = req.body;
+        const lectures = await Lecture.find( {batchId:batchId} );
+        let staffNumbers = lectures.map(lecture=>{
+            return lecture.staffId.toString()
+        })
+        let distinctStaff = new Set(staffNumbers)
+        totStaff = distinctStaff.size
+        
+        let subjectNumbers = lectures.map(lecture=>{
+            return lecture.staffId.toString()
+        })
+        let distinctSubjects = new Set(subjectNumbers)
+        totSubs = distinctSubjects.size
+
+        return res.status(200).json( { totalTeachers:totStaff, totalSubjects:totSubs }  );
+    } catch (e) {
+        console.log(e)
         return res.status(500);
     }
 }

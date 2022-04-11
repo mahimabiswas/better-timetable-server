@@ -1,5 +1,5 @@
+const subject = require("../models/subject");
 const Subject = require("../models/subject");
-
 // TODO: update
 
 exports.add = async (req, res) => {
@@ -50,6 +50,22 @@ exports.update = async (req, res) => {
         const { id, shortName, longName, type, programId } = req.body;
             const subject = await Subject.findByIdAndUpdate( id,{$set:{shortName, longName, type, programId }},{new:true} );
         return res.status(200).json({ subject });
+    } catch (e) {
+        return res.status(500);
+    }
+}
+
+exports.getElectives = async (req, res) => {
+    try {
+        let result =[]
+        const { batchId } = req.body;
+        const subjects = await Subject.find( {batchId} );
+        for(i=0;i<subjects.length;i++)
+        {
+            if(subjects[i].type == 1)
+            result[i]={shortName:subjects[i].shortName, longName:subjects[i].longName, id:subjects[i]._id}
+        }
+        return res.status(200).json({ result:result })
     } catch (e) {
         return res.status(500);
     }
