@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 const { isSignedIn, isAdmin } = require("../controllers/auth");
-const { add, get, _delete, update, getDivision } = require("../controllers/batch");
+const { add, get, _delete, update, getDivision, getBatchDetails } = require("../controllers/batch");
 
 
 router.post(
@@ -33,5 +33,10 @@ router.put(
 router.get(
     "/division",
     getDivision
+);
+
+router.get(
+    "/getBatchDetails",
+     getBatchDetails
 );
 module.exports = router;
