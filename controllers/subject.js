@@ -103,6 +103,7 @@ exports.getElectives = async (req, res) => {
             const subject = await Subject.findById(distinctSubject[i]);
             if (subject.type === 1) {
                 result[i] = {
+                    subjectId: subject._id,
                     shortName: subject.shortName,
                     longName: subject.longName
                 }
