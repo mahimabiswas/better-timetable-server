@@ -1,9 +1,14 @@
-const subject = require("../models/subject");
 const Subject = require("../models/subject");
+const Lecture = require("../models/lecture");
 // TODO: update
 
 exports.add = async (req, res) => {
-    const { shortName, longName, subjectType: type, programId } = req.body;
+    const {
+        shortName,
+        longName,
+        subjectType: type,
+        programId
+    } = req.body;
 
     const subject = new Subject({
         shortName,
@@ -27,9 +32,15 @@ exports.add = async (req, res) => {
 
 exports.get = async (req, res) => {
     try {
-        const { programId } = req.query;
-        const subjects = await Subject.find({ programId });
-        return res.status(200).json({ subjects });
+        const {
+            programId
+        } = req.query;
+        const subjects = await Subject.find({
+            programId
+        });
+        return res.status(200).json({
+            subjects
+        });
     } catch (e) {
         return res.status(500);
     }
@@ -37,9 +48,13 @@ exports.get = async (req, res) => {
 
 exports._delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const {
+            id
+        } = req.body;
         const subjects = await Subject.findByIdAndDelete(id);
-        return res.status(200).json({ subjects });
+        return res.status(200).json({
+            subjects
+        });
     } catch (e) {
         return res.status(500);
     }
@@ -47,9 +62,26 @@ exports._delete = async (req, res) => {
 
 exports.update = async (req, res) => {
     try {
-        const { id, shortName, longName, type, programId } = req.body;
-        const subject = await Subject.findByIdAndUpdate(id, { $set: { shortName, longName, type, programId } }, { new: true });
-        return res.status(200).json({ subject });
+        const {
+            id,
+            shortName,
+            longName,
+            type,
+            programId
+        } = req.body;
+        const subject = await Subject.findByIdAndUpdate(id, {
+            $set: {
+                shortName,
+                longName,
+                type,
+                programId
+            }
+        }, {
+            new: true
+        });
+        return res.status(200).json({
+            subject
+        });
     } catch (e) {
         return res.status(500);
     }
@@ -57,15 +89,30 @@ exports.update = async (req, res) => {
 
 exports.getElectives = async (req, res) => {
     try {
-        let result =[]
-        const { batchId } = req.body;
-        const subjects = await Subject.find( {batchId} );
-        for(i=0;i<subjects.length;i++)
-        {
-            if(subjects[i].type == 1)
-            result[i]={shortName:subjects[i].shortName, longName:subjects[i].longName, id:subjects[i]._id}
+        let result = []
+        const {
+            batchId
+        } = req.body;
+        const lectures = await Lecture.find({
+            batchId
+        });
+        let subjectIds = lectures.map(lecture => {
+            return lecture.subjectId.toString()
+        });
+        let distinctSubject = new Set(subjectIds)
+        distinctSubject = [...distinctSubject]
+        for (i = 0; i < distinctSubject.length; i++) {
+            const subjects = await Subject.findById(distinctSubject[i]);
+            if (subjects.type == 2) {
+                result[i] = {
+                    shortName: subjects.shortName,
+                    longName: subjects.longName
+                }
+            }
         }
-        return res.status(200).json({ result:result })
+        return res.status(200).json({
+            result: result
+        });
     } catch (e) {
         return res.status(500);
     }
