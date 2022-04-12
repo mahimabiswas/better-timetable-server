@@ -62,11 +62,13 @@ exports.get = async (req, res) => {
 
         const lectures = await Lecture.find({ $and: [{ batchId: batchId }, { division: division }] })
         for (i = 0; i < lectures.length; i++) {
-            const subId = lectures[i].subjectId.toString();
-            let staffId = lectures[i].staffId.toString();
-            let subjectDetails = await Subject.findById(subId)
-            let staffDetails = await Staff.findById(staffId)
-            result[i] = { subjectId: subId, id: lectures[i]._id, name: staffDetails?.name, shortName: subjectDetails?.shortName, longName: subjectDetails?.longName, type: subjectDetails?.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
+            if (lectures[i]) {
+                const subId = lectures[i].subjectId.toString();
+                let staffId = lectures[i].staffId.toString();
+                let subjectDetails = await Subject.findById(subId)
+                let staffDetails = await Staff.findById(staffId)
+                result[i] = { subjectId: subId, id: lectures[i]?._id, name: staffDetails?.name, shortName: subjectDetails?.shortName, longName: subjectDetails?.longName, type: subjectDetails?.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
+            }
         }
         return res.status(200).json({ result: result });
     }
