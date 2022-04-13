@@ -18,6 +18,18 @@ exports.add = async (req, res) => {
         batchId
     });
 
+
+    const lectures = await Lecture.find({ $and: [{ day : day }, { batchId: batchId }] })
+    for(i=0;i<lectures.length;i++)
+    {
+        if(time['from']>lectures[i].time['from'] && time['from']<lectures[i].time['to'] || time['to']>lectures[i].time['from'] && time['to']<lectures[i].time['to'])
+        {
+            return res.status(400).json({
+                err: "NOT able to save lecture in DB"
+            });
+        }
+    }
+    
     lecture.save(async (err) => { // remove the param (to review)
         if (err) {
             return res.status(400).json({
@@ -62,13 +74,12 @@ exports.get = async (req, res) => {
 
         const lectures = await Lecture.find({ $and: [{ batchId: batchId }, { division: division }] })
         for (i = 0; i < lectures.length; i++) {
-            if (lectures[i]) {
-                const subId = lectures[i].subjectId.toString();
-                let staffId = lectures[i].staffId.toString();
-                let subjectDetails = await Subject.findById(subId)
-                let staffDetails = await Staff.findById(staffId)
-                result[i] = { subjectId: subId, id: lectures[i]?._id, name: staffDetails?.name, shortName: subjectDetails?.shortName, longName: subjectDetails?.longName, type: subjectDetails?.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
-            }
+            const subId = lectures[i].subjectId.toString();
+            let staffId = lectures[i].staffId.toString();
+            let subjectDetails = await Subject.findById(subId)
+            let staffDetails = await Staff.findById(staffId)
+            result[i] = { name: staffDetails.name, shortName: subjectDetails.shortName, longName: subjectDetails.longName, type: subjectDetails.type, time: lectures[i].time, day: lectures[i].day, date: lectures[i].date }
+            console.log(result[i]);
         }
         return res.status(200).json({ result: result });
     }
