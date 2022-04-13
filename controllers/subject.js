@@ -50,7 +50,7 @@ exports._delete = async (req, res) => {
     try {
         const {
             id
-        } = req.body;
+        } = req.query;
         const subjects = await Subject.findByIdAndDelete(id);
         return res.status(200).json({
             subjects
@@ -103,6 +103,7 @@ exports.getElectives = async (req, res) => {
             const subject = await Subject.findById(distinctSubject[i]);
             if (subject.type === 1) {
                 result[i] = {
+                    subjectId: subject._id,
                     shortName: subject.shortName,
                     longName: subject.longName
                 }
