@@ -84,9 +84,11 @@ exports.add = async (req, res) => {
 
 exports._delete = async (req, res) => {
     try {
+
         const {
             id
         } = req.body;
+
         const lectures = await Lecture.findByIdAndDelete(id);
         return res.status(200).json({
             lectures
@@ -153,6 +155,7 @@ exports.get = async (req, res) => {
             let staffId = lectures[i].staffId.toString();
             let subjectDetails = await Subject.findById(subId)
             let staffDetails = await Staff.findById(staffId)
+
             result[i] = {
                 name: staffDetails.name,
                 shortName: subjectDetails.shortName,
@@ -163,6 +166,7 @@ exports.get = async (req, res) => {
                 date: lectures[i].date
             }
             console.log(result[i])
+
         }
         return res.status(200).json({
             result: result

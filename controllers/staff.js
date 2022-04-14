@@ -87,8 +87,9 @@ exports.update = async (req, res) => {
 
 exports._delete = async (req, res) => {
     try {
-        const { id } = req.body;
+        const { id } = req.query;
         const staff = await Staff.findByIdAndDelete(id);
+        console.log(id)
         return res.status(200).json({ staff });
     } catch (e) {
         return res.status(500);
