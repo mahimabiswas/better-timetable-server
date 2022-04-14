@@ -155,24 +155,26 @@ exports.get = async (req, res) => {
             let staffId = lectures[i].staffId.toString();
             let subjectDetails = await Subject.findById(subId)
             let staffDetails = await Staff.findById(staffId)
+            if (staffDetails && subjectDetails && lectures[i]) {
+                result[i] = {
 
-            result[i] = {
-                name: staffDetails.name,
-                shortName: subjectDetails.shortName,
-                longName: subjectDetails.longName,
-                type: subjectDetails.type,
-                time: lectures[i].time,
-                day: lectures[i].day,
-                date: lectures[i].date
+                    name: staffDetails.name,
+                    shortName: subjectDetails.shortName,
+                    longName: subjectDetails.longName,
+                    type: subjectDetails.type,
+                    time: lectures[i].time,
+                    day: lectures[i].day,
+                    date: lectures[i].date
+                }
+              
             }
-            console.log(result[i])
-
         }
         return res.status(200).json({
             result: result
         });
     } catch (e) {
         console.log(e)
+        console.log("hello")
         return res.status(500);
     }
 };
